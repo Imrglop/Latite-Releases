@@ -1,12 +1,13 @@
-:: Made by VastraKai#0001 for Latite Client/Injector
+@:: Made by VastraKai#0001 for Latite Client/Injector
 
 @title LatiteLauncher Downloader
 @if /i not "%batdebug%" == "true" @echo off
 
-set LatiteExeLocation=%userprofile%\Desktop
+set LatiteExeLocation=%userprofile%\Desktop\LatiteClient
 set LatiteExeName=LatiteLauncher.exe
 set LatiteFullPath=%LatiteExeLocation%\%LatiteExeName%
-set InjectorLink=https://github.com/Plextora/LatiteInjector/releases/latest/download/LatiteInjector.exe
+set InjectorLink=https://github.com/Imrglop/Latite-Releases/raw/main/injector/Injector.exe
+set InjectorLinkBetter=https://github.com/Plextora/LatiteInjector/releases/latest/download/LatiteInjector.exe
 
 :checkPrivileges
 net file 1>NUL 2>NUL
@@ -41,20 +42,9 @@ if not "%errorlevel%" == "0" echo Failed to add exclusion. (Windows Defender is 
 
 echo Downloading Latite Launcher...
 taskkill /f /im "%LatiteExeName%" > nul 2>&1
-start /wait "LatiteLauncher Downloader" cmd /c curl "%InjectorLink%" -L -f -o "%LatiteExeName%"
-if not "%errorlevel%" == "0" goto :BitsAdminFallback
+> nul 2>&1 cmd /c curl "%InjectorLink%" -L -f -o "%LatiteExeName%"
+if "%errorlevel%" == "0" goto :SkipBitsAdmin
 
-:SkipBitsAdmin
-start "" "%LatiteFullPath%"
-echo Latite Launcher has now on your desktop!
-timeout -t 3  > nul
-del /f /q "%~0"
-goto :EOF
-
-
-
-
-:BitsAdminFallback
 echo WARNING: Failed to download using curl, falling back to bitsadmin.
 start /wait "LatiteLauncher Downloader" cmd /c bitsadmin /TRANSFER LatiteDownload /DOWNLOAD %InjectorLink% "%LatiteFullPath%"
 if not "%errorlevel%" == "0" (
@@ -62,4 +52,10 @@ if not "%errorlevel%" == "0" (
     pause
     goto :EOF
 )
-goto :SkipBitsAdmin
+:SkipBitsAdmin
+
+start "" "%LatiteFullPath%"
+echo Latite Launcher has now on your desktop!
+start /min "" cmd /c "timeout -t 2 -nobreak > nul 2>&1 & del /f /q "%~dps0\%~nxs0""
+timeout -t 1 > nul
+goto :EOF

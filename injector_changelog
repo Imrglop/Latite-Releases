@@ -1,0 +1,4 @@
+1. Added Discord Activity Status
+2. Proper GUI added to the Credits page
+3. Added error logging for better bug reports
+4. Added ability to inject custom DLLs

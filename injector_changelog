@@ -1,4 +1,4 @@
-1. Fixed bug that crashed injector on startup
-2. Huge GUI redesign!
-3. Injector now minimizes to tray!
+1. Added a version mismatch error
+2. Fixed bug that crashed injector on startup
+3. Huge GUI redesign!
 4. Version list now auto updates!

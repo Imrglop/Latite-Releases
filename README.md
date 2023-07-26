@@ -1,1 +1,1 @@
-# Latit Client Releases
+# Latite Client Releases
